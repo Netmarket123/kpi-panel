@@ -28,8 +28,10 @@ export default new Vuex.Store({
   actions: {
     LOGIN:({commit}, payload)=>{
       console.log("this is action", payload);
+      // TODO: change to 127.0.0.1 for local environment
+      const apiUrl = 'https://kpipanel.herokuapp.com';
       return new Promise((resolve , reject)=>{
-        axios.post('http://127.0.0.1:5000/api/get_token', payload)
+        axios.post(`${apiUrl}/api/get_token`, payload)
             .then(({data}) =>{
               console.log(data)
               if(data.success == true)
