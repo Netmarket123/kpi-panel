@@ -308,4 +308,4 @@ def kpi_panel():
     return jsonify({'data': lista_resultados})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=environ.get('PORT') or 5000)
+    app.run(debug=True, host='0.0.0.0', port=environ.get('PORT') or 5000)
