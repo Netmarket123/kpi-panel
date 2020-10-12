@@ -17,8 +17,8 @@ APP_DIR = os.path.abspath(os.path.dirname(__file__))
 STATIC_FOLDER = os.path.join(APP_DIR, './client/dist')
 app = Flask(__name__, static_folder=STATIC_FOLDER, template_folder=STATIC_FOLDER)
 bcrypt = Bcrypt(app)
-app.config['MONGO_DBNAME'] = 'db_dsf_02'
-app.config["MONGO_URI"] = environ.get('DB_URI') or 'mongodb://localhost:27017/db_dsf_02'
+app.config['MONGO_DBNAME'] = environ.get('DB_NAME') or 'test'
+app.config["MONGO_URI"] = environ.get('DB_URI') or f'mongodb://localhost:27017/{config["MONG_DBNAME"]}'
 mongo = PyMongo(app)
 CORS(app, resources={r'/*': {'origins': '*'}}) # enable CORS
 app.config['SECRET_KEY'] = "secret"
@@ -120,6 +120,7 @@ def is_token_valid():
 
 @app.route("/api/get_token", methods=["POST"])
 def get_token():
+    print("get_token invoked")
     incoming = request.get_json()
     user = get_user_with_email_and_password(incoming["email"], incoming["password"])
     print("==================================================   ", user)
